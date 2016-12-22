@@ -46,10 +46,10 @@ To let CXF works (and Jackson here for the serialization side), you have to chan
 
 [source,xml]
 ----
-<wls:weblogic-application xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-application"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-application 
-                            http://xmlns.oracle.com/weblogic/weblogic-application/1.8/weblogic-application.xsd">
+<wls:weblogic-application  xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-application"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-application 
+                                               http://xmlns.oracle.com/weblogic/weblogic-application/1.8/weblogic-application.xsd">
 
     <wls:prefer-application-packages>
       <wls:package-name>javax.ws.rs.*</wls:package-name>
