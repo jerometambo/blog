@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>How to use CXF 3.x implementation of JAX-RS 2.0 (REST) with Weblogic 12c</title>
+    <meta name="description" content="" />
+    <link href="//fonts.googleapis.com/css?family=Noto+Sans:300,400,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic" rel="stylesheet" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//jerometambo.github.io/blog/themes/saga/assets/css/style.css?v=1482412850442" rel="stylesheet" type="text/css">
+    <link href="//jerometambo.github.io/blog/themes/saga/assets/css/animate.min.css?v=1482412850442" rel="stylesheet" type="text/css">
+    <link href="https://jerometambo.github.io/blog/favicon.ico" rel="shortcut icon">
+    <link rel="canonical" href="https://jerometambo.github.io/blog/2016/12/13/How-to-use-CXF-3x-implementation-of-JAX-RS-20-REST-with-Weblogic-12c.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Le blog du tambo" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to use CXF 3.x implementation of JAX-RS 2.0 (REST) with Weblogic 12c" />
+    <meta property="og:description" content="When I had to deploy a webapp with REST web services based on CXF 3.x on Weblogic 12c server, my problems started. With default configuration, Weblogic wants to use its internal implementation (JAX-RS 2.0 and serialization) to deploy the REST web services (Error 500): java.lang.LinkageError: ClassCastException:" />
+    <meta property="og:url" content="https://jerometambo.github.io/blog/2016/12/13/How-to-use-CXF-3x-implementation-of-JAX-RS-20-REST-with-Weblogic-12c.html" />
+    <meta property="article:tag" content="REST" />
+    <meta property="article:tag" content=" Weblogic 12c" />
+    <meta property="article:tag" content=" CXF 3" />
+    <meta property="article:tag" content=" Java" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="How to use CXF 3.x implementation of JAX-RS 2.0 (REST) with Weblogic 12c" />
+    <meta name="twitter:description" content="When I had to deploy a webapp with REST web services based on CXF 3.x on Weblogic 12c server, my problems started. With default configuration, Weblogic wants to use its internal implementation (JAX-RS 2.0 and serialization) to deploy the REST web services (Error 500): java.lang.LinkageError: ClassCastException:" />
+    <meta name="twitter:url" content="https://jerometambo.github.io/blog/2016/12/13/How-to-use-CXF-3x-implementation-of-JAX-RS-20-REST-with-Weblogic-12c.html" />
+    
+    <script type="application/ld+json">
+null
+    </script>
+
+    <meta name="generator" content="HubPress" />
+    <link rel="alternate" type="application/rss+xml" title="Le blog du tambo" href="https://jerometambo.github.io/blog/rss/" />
+</head>
+<body class="post-template tag-REST tag-Weblogic-12c tag-CXF-3 tag-Java">
+    <header id="header" class="animated fadeIn">
+    <div class="header-background">
+    <section class="blog-content">
+        <a id="site-url" class="blog-title" href="https://jerometambo.github.io/blog">Le blog du tambo</a>
+        <span class="blog-description"></span>
+        <nav class="links fadeIn animated">
+            <ul>
+                <li class="rss"><a title="RSS Feed" href="/rss/"><i class="fa fa-fw fa-rss-square"></i></a></li>
+        
+            </ul>
+        </nav>
+    </section>
+    <section class="header-content">
+        <h1 class="post-title animated fadeInUp">How to use CXF 3.x implementation of JAX-RS 2.0 (REST) with Weblogic 12c</h1>
+        <span class="post-data"><span class="date animated fadeInUp"><i class="fa fa-clock-o"></i> <time class="timesince date" data-timesince="1481583600" datetime="2016-12-13T00:00" title="13 December 2016">10 days ago</time></span>
+            <span class="tags animated fadeInUp"><i class="fa fa-tags"></i> <a href="https://jerometambo.github.io/blog/tag/REST/">REST</a>, <a href="https://jerometambo.github.io/blog/tag/Weblogic-12c/"> Weblogic 12c</a>, <a href="https://jerometambo.github.io/blog/tag/CXF-3/"> CXF 3</a>, <a href="https://jerometambo.github.io/blog/tag/Java/"> Java</a></span>
+            <span class="author animated fadeInUp"><i class="fa fa-user"></i> <a href="https://jerometambo.github.io/blog/author/jerometambo/">jerometambo</a></span></span>
+    </section>
+    </div>
+</header>
+<main id="main" class="content">
+    <article itemtype="http://schema.org/BlogPosting" class="animated fadeIn content post post tag-REST tag-Weblogic-12c tag-CXF-3 tag-Java">
+        <section class="post-content">
+            <div class="paragraph">
+<p>When I had to deploy a webapp with REST web services based on CXF 3.x on Weblogic 12c server, my problems started. With default configuration, Weblogic wants to use its internal implementation (JAX-RS 2.0 and serialization) to deploy the REST web services (Error 500):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-asciidoc" data-lang="asciidoc">java.lang.LinkageError: ClassCastException: attempting to castjar:file:/opt/weblogic/oracle_common/modules/javax.ws.rs.javax.ws.rs-api.jar!/javax/ws/rs/ext/RuntimeDelegate.class to jar:file:/opt/weblogic/oracle_common/modules/javax.ws.rs.javax.ws.rs-api.jar!/javax/ws/rs/ext/RuntimeDelegate.class
+
+at javax.ws.rs.ext.RuntimeDelegate.findDelegate(RuntimeDelegate.java:146)
+
+at javax.ws.rs.ext.RuntimeDelegate.getInstance(RuntimeDelegate.java:120)
+
+at javax.ws.rs.core.Response$ResponseBuilder.newInstance(Response.java:848)
+
+at javax.ws.rs.core.Response.status(Response.java:590)
+
+at javax.ws.rs.core.Response.status(Response.java:601)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After many researches and the reading of Oracle posts (I even tried to open a SR at Oracle but it wasn&#8217;t really helpful this time), I manage to find a working configuration. This configuration sets Weblogic not to choose its own implementations for web services deployment and resources serialization.</p>
+</div>
+<div class="paragraph">
+<p>To let CXF works (and Jackson here for the serialization side), you have to change these configuration files:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>../webapp/WEB-INF/weblogic.xml :</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;weblogic-web-app 	xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app
+										http://xmlns.oracle.com/weblogic/weblogic-web-app/1.8/weblogic-web-app.xsd"&gt;
+&lt;!-- ... --&gt;
+&lt;container-descriptor&gt;
+	&lt;prefer-application-packages&gt;
+		&lt;package-name&gt;javax.ws.rs.*&lt;/package-name&gt;
+		&lt;package-name&gt;com.fasterxml.jackson.*&lt;/package-name&gt; &lt;!-- Your root serialization implementation package --&gt;
+	&lt;/prefer-application-packages&gt;
+	&lt;!-- ... --&gt;
+&lt;/container-descriptor&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>../META-INF/weblogic-application.xml</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;wls:weblogic-application xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-application"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-application
+                            http://xmlns.oracle.com/weblogic/weblogic-application/1.8/weblogic-application.xsd"&gt;
+
+    &lt;wls:prefer-application-packages&gt;
+      &lt;wls:package-name&gt;javax.ws.rs.*&lt;/wls:package-name&gt;
+      &lt;wls:package-name&gt;com.fasterxml.jackson.*&lt;/wls:package-name&gt;
+      &lt;wls:package-name&gt;weblogic.jaxrs.api.client.*&lt;/wls:package-name&gt;
+      &lt;wls:package-name&gt;weblogic.jaxrs.internal.api.*&lt;/wls:package-name&gt;
+      &lt;wls:package-name&gt;weblogic.jaxrs.dispatch.*&lt;/wls:package-name&gt;
+      &lt;wls:package-name&gt;weblogic.jaxrs.monitoring.util.*&lt;/wls:package-name&gt;
+    &lt;/wls:prefer-application-packages&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I hope this can help some REST web services developers with CXF 3 who have to deal with Weblogic 12c :)</p>
+</div>
+        </section>
+
+    
+        <section class="post-comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+          var disqus_shortname = 'jerometambo'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+    
+    </article>
+
+</main>
+    <footer class="animated fadeIn" id="footer">
+        <section class="colophon">
+          <section class="copyright">Copyright &copy; <span itemprop="copyrightHolder">Le blog du tambo</span>. <span rel="license">All Rights Reserved</span>.</section>
+          <section class="poweredby">Published with <a class="icon-ghost" href="http://hubpress.io">HubPress</a></section>
+        </section>
+        <section class="bottom">
+          <section class="attribution">
+            <a href="http://github.com/Reedyn/Saga">Built with <i class="fa fa-heart"></i> and Free and Open-Source Software</a>.
+          </section>
+        </section>
+    </footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();
+      </script>
+    <script src="//jerometambo.github.io/blog/themes/saga/assets/js/scripts.js?v=1482412850442"></script>
+    
+</body>
+</html>
