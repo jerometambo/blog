@@ -6,6 +6,7 @@
   },
   "site": {
     "title": "Le blog du tambo",
+    "description": "Blog about development trick and tech stuff",
     "disqus": "jerometambo"
   },
   "socialnetwork": {
