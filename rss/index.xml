@@ -1,4 +1,87 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Le blog du tambo]]></title><description><![CDATA[Blog about development tricks and tech stuff]]></description><link>https://jerometambo.github.io/blog</link><generator>RSS for Node</generator><lastBuildDate>Thu, 22 Dec 2016 13:23:56 GMT</lastBuildDate><atom:link href="https://jerometambo.github.io/blog/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How to use CXF 3.x implementation of JAX-RS 2.0 (REST) with Weblogic 12c]]></title><description><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Le blog du tambo]]></title><description><![CDATA[Blog about development tricks and tech stuff]]></description><link>https://jerometambo.github.io/blog</link><generator>RSS for Node</generator><lastBuildDate>Thu, 22 Dec 2016 13:51:59 GMT</lastBuildDate><atom:link href="https://jerometambo.github.io/blog/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How to dynamically register a Servlet (SCI since Servlet 3.0) with Tomcat 7 / 8 speed-up optimization]]></title><description><![CDATA[<div class="paragraph">
+<p>Since Tomcat 7, and it&#8217;s even worth with Tomcat 8, the time to start up a webapp has seriously increased. There are 2 excellent posts about how to speed-up the start-up of a webapp in Tomcat by changing your webapp configuration (mostly web.xml) :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://wiki.apache.org/tomcat/HowTo/FasterStartUp" class="bare">https://wiki.apache.org/tomcat/HowTo/FasterStartUp</a></p>
+</li>
+<li>
+<p><a href="https://tcollignon.github.io/2016/02/09/Accelerate-tomcat-78-start-up.html" class="bare">https://tcollignon.github.io/2016/02/09/Accelerate-tomcat-78-start-up.html</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you exclude JARs from scanning in Tomcat, you will not be able to perform some dynamic registration of Servlet via the @WebListener annotation a ServletContextListener implementation :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package org.jerometambo.dynamicservletinitializer.servlet;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.ServletRegistration.Dynamic;
+
+/**
+ * Then register the main {@link Servlet}. Inject configurations like {@link MultipartConfigElement}.
+ */
+@WebListener
+public class DynamicServletInitializer implements ServletContextListener {
+  /** The main {@link Servlet} name. */
+  public static final String MAIN_SERVLET = "HelloWorld";
+  /** The main error page name. */
+  public static final String ERROR_PAGE = "errorPage";
+
+  @Override
+  public void contextInitialized(ServletContextEvent servletContextEvent) {
+	registerMainServlet(servletContextEvent);
+  }
+
+  /**
+   * Registers the main servlet in application.
+   */
+  protected void registerMainServlet(ServletContextEvent servletContextEvent) {
+        public void contextInitialized(ServletContextEvent servletContextEvent) {
+        Dynamic registered = servletContextEvent.getServletContext().addServlet(MAIN_SERVLET, HelloWorldServlet.class);
+        registered.addMapping("/HelloWorld");
+    }
+    registered.setInitParameter(ERROR_PAGE, getErrorPage());
+  }
+
+  /**
+   * @return the relative path of the error page in application.
+   */
+  protected String getErrorPage() {
+    return "/jsp/org/jerometambo/errorPage.jsp";
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The trick in order to be able to use SCI and features like this one with Tomcat 7/8 tuning, is to declare your listener in your web.xml :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd"&gt;
+&lt;web-app metadata-complete="true"&gt;
+&lt;absolute-ordering /&gt;
+  &lt;!-- ... --&gt;
+    &lt;listener&gt;
+  &lt;!-- we don't use @WebListener annotation otherwise Tomcat has to scan JARs at start-up --&gt;
+    &lt;listener-class&gt;org.jerometambo.dynamicservletinitializer.servlet.DynamicServletInitializer&lt;/listener-class&gt;
+  &lt;/listener&gt;
+  &lt;!-- ... --&gt;
+&lt;/web-app&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I hope it can help you to fasten up your applications start-up.</p>
+</div>
+<div class="paragraph">
+<p>Tchou !</p>
+</div>]]></description><link>https://jerometambo.github.io/blog/2016/12/15/How-to-dynamically-register-a-Servlet-SCI-since-Servlet-30-with-Tomcat-7-8-speed-up-optimization.html</link><guid isPermaLink="true">https://jerometambo.github.io/blog/2016/12/15/How-to-dynamically-register-a-Servlet-SCI-since-Servlet-30-with-Tomcat-7-8-speed-up-optimization.html</guid><category><![CDATA[Tomcat 7]]></category><category><![CDATA[ Tomcat 8]]></category><category><![CDATA[ Servlet 3.0]]></category><category><![CDATA[ Java]]></category><dc:creator><![CDATA[jerometambo]]></dc:creator><pubDate>Thu, 15 Dec 2016 00:00:00 GMT</pubDate></item><item><title><![CDATA[How to use CXF 3.x implementation of JAX-RS 2.0 (REST) with Weblogic 12c]]></title><description><![CDATA[<div class="paragraph">
 <p>When I had to deploy a webapp with REST web services based on CXF 3.x on Weblogic 12c server, my problems started. With default configuration, Weblogic wants to use its internal implementation (JAX-RS 2.0 and serialization) to deploy the REST web services (Error 500):</p>
 </div>
 <div class="listingblock">
