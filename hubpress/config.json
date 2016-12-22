@@ -1,10 +1,19 @@
 {
   "meta": {
-    "username": "put your username here",
-    "repositoryName": "put your repository name here",
+    "username": "jerometambo",
+    "repositoryName": "blog",
     "branch": "gh-pages"
   },
+  "site": {
+    "title": "Le blog du tambo",
+    "disqus": "jerometambo"
+  },
+  "socialnetwork": {
+    "twitter": "jerometambo",
+    "linkedin": "https://www.linkedin.com/in/jerometamborini/en",
+    "github": "jerometambo"
+  },
   "theme": {
-    "name": "Casper"
+    "name": "saga"
   }
 }
