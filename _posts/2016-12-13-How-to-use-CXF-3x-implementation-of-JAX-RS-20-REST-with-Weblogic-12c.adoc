@@ -1,0 +1,65 @@
+= How to use CXF 3.x implementation of JAX-RS 2.0 (REST) with Weblogic 12c
+:published_at: 2016-12-13
+:hp-tags: REST, Weblogic 12c, CXF 3, Java
+
+When I had to deploy a webapp with REST web services based on CXF 3.x on Weblogic 12c server, my problems started. With default configuration, Weblogic wants to use its internal implementation (JAX-RS 2.0 and serialization) to deploy the REST web services (Error 500):
+
+[source,asciidoc]
+----
+java.lang.LinkageError: ClassCastException: attempting to castjar:file:/opt/weblogic/oracle_common/modules/javax.ws.rs.javax.ws.rs-api.jar!/javax/ws/rs/ext/RuntimeDelegate.class to jar:file:/opt/weblogic/oracle_common/modules/javax.ws.rs.javax.ws.rs-api.jar!/javax/ws/rs/ext/RuntimeDelegate.class
+
+at javax.ws.rs.ext.RuntimeDelegate.findDelegate(RuntimeDelegate.java:146)
+
+at javax.ws.rs.ext.RuntimeDelegate.getInstance(RuntimeDelegate.java:120)
+
+at javax.ws.rs.core.Response$ResponseBuilder.newInstance(Response.java:848)
+
+at javax.ws.rs.core.Response.status(Response.java:590)
+
+at javax.ws.rs.core.Response.status(Response.java:601)
+
+----
+
+After many researches and the reading of Oracle posts (I even tried to open a SR at Oracle but it wasn't really helpful this time), I manage to find a working configuration. This configuration sets Weblogic not to choose its own implementations for web services deployment and resources serialization.
+
+To let CXF works (and Jackson here for the serialization side), you have to change these configuration files:
+
+- ../webapp/WEB-INF/weblogic.xml :
+
+[source,xml]
+----
+<weblogic-web-app 	xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app 
+										http://xmlns.oracle.com/weblogic/weblogic-web-app/1.8/weblogic-web-app.xsd">
+<!-- ... -->
+<container-descriptor>
+	<prefer-application-packages>
+		<package-name>javax.ws.rs.*</package-name>
+		<package-name>com.fasterxml.jackson.*</package-name> <!-- Your root serialization implementation package -->
+	</prefer-application-packages>
+	<!-- ... -->
+</container-descriptor>
+----
+
+- ../META-INF/weblogic-application.xml
+
+[source,xml]
+----
+<wls:weblogic-application xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-application"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-application 
+                            http://xmlns.oracle.com/weblogic/weblogic-application/1.8/weblogic-application.xsd">
+
+    <wls:prefer-application-packages>
+      <wls:package-name>javax.ws.rs.*</wls:package-name>
+      <wls:package-name>com.fasterxml.jackson.*</wls:package-name>
+      <wls:package-name>weblogic.jaxrs.api.client.*</wls:package-name>
+      <wls:package-name>weblogic.jaxrs.internal.api.*</wls:package-name>
+      <wls:package-name>weblogic.jaxrs.dispatch.*</wls:package-name>
+      <wls:package-name>weblogic.jaxrs.monitoring.util.*</wls:package-name>
+    </wls:prefer-application-packages>
+
+----
+
+I hope this can help some REST web services developers with CXF 3 who have to deal with Weblogic 12c :)
