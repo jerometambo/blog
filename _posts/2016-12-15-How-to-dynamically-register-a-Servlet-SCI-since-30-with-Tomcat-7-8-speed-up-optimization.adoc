@@ -1,0 +1,76 @@
+= How to dynamically register a Servlet (SCI since 3.0) with Tomcat 7 / 8 speed-up optimization
+:published_at: 2016-12-15
+:hp-tags: Tomcat 7, Tomcat 8, Servlet 3.0, Java
+
+
+Since Tomcat 7, and it's even worth with Tomcat 8, the time to start up a webapp has increased. There are 2 excellent posts about how to speed-up the start-up of a webapp in Tomcat by changing your webapp configuration (mostly web.xml) :
+
+- https://wiki.apache.org/tomcat/HowTo/FasterStartUp
+- https://tcollignon.github.io/2016/02/09/Accelerate-tomcat-78-start-up.html
+
+If you exclude JARs from scanning in Tomcat, you will not be able to perform some dynamic registration of Servlet via the @WebListener annotation a ServletContextListener implementation : 
+
+[source,java]
+----
+package org.jerometambo.dynamicservletinitializer.servlet;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.ServletRegistration.Dynamic;
+
+/**
+ * Then register the main {@link Servlet}. Inject configurations like {@link MultipartConfigElement}.
+ */
+@WebListener
+public class DynamicServletInitializer implements ServletContextListener {
+  /** The main {@link Servlet} name. */
+  public static final String MAIN_SERVLET = "HelloWorld";
+  /** The main error page name. */
+  public static final String ERROR_PAGE = "errorPage";
+
+  @Override
+  public void contextInitialized(ServletContextEvent servletContextEvent) {
+	registerMainServlet(servletContextEvent);
+  }
+
+  /**
+   * Registers the main servlet in application.
+   */
+  protected void registerMainServlet(ServletContextEvent servletContextEvent) {
+        public void contextInitialized(ServletContextEvent servletContextEvent) {
+        Dynamic registered = servletContextEvent.getServletContext().addServlet(MAIN_SERVLET, HelloWorldServlet.class);
+        registered.addMapping("/HelloWorld");
+    }
+    registered.setInitParameter(ERROR_PAGE, getErrorPage());
+  }
+  
+  /**
+   * @return the relative path of the error page in application.
+   */
+  protected String getErrorPage() {
+    return "/jsp/org/jerometambo/errorPage.jsp";
+  }
+
+}
+----
+
+The trick in order to be able to use SCI and features like this one with Tomcat 7/8 tuning, is to declare your listener in your web.xml : 
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app metadata-complete="true">
+<absolute-ordering />
+  <!-- ... -->
+    <listener>
+  <!-- we don't use @WebListener annotation otherwise Tomcat has to scan JARs at start-up -->
+    <listener-class>org.jerometambo.dynamicservletinitializer.servlet.DynamicServletInitializer</listener-class>
+  </listener>
+  <!-- ... -->
+</web-app>
+----
+
+I hope it can help you to fasten up your applications start-up.
+
+Tchou !
