@@ -63,3 +63,5 @@ To let CXF works (and Jackson here for the serialization side), you have to chan
 ----
 
 I hope this can help some REST web services developers with CXF 3 who have to deal with Weblogic 12c :)
+
+Tchou !
