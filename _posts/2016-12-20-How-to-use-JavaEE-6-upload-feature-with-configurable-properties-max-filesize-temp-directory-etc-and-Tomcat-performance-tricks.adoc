@@ -61,7 +61,9 @@ public class DynamicServletInitializer implements ServletContextListener {
 }
 ----
 
-You can find an example on my github: https://github.com/jerometambo/dynamicservletinitializer on the _uploadConfigFromProperties_ branch. I will soon add a utils lib to deal with _File_ uploads on my github.
+You can find an example on my github: https://github.com/jerometambo/dynamicservletinitializer on the _uploadConfigFromProperties_ branch. 
+
+You can find an utils lib to deal with _File_ uploads on my github: https://github.com/jerometambo/javaeeuploadutils on the _master_ branch.
 
 Useful links:
 
