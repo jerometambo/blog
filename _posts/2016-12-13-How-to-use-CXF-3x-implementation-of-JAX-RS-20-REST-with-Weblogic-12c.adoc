@@ -1,6 +1,6 @@
 = How to use CXF 3.x implementation of JAX-RS 2.0 (REST) with Weblogic 12c
 :published_at: 2016-12-13
-:hp-tags: REST, Weblogic 12c, CXF 3, Java
+:hp-tags: REST, Weblogic 12c, CXF 3, Java, Programming
 
 When I had to deploy a webapp with REST web services based on CXF 3.x on Weblogic 12c server, my problems started. With default configuration, Weblogic wants to use its internal implementation (JAX-RS 2.0 and serialization) to deploy the REST web services (Error 500):
 
