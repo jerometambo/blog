@@ -52,7 +52,7 @@ public class DynamicServletInitializer implements ServletContextListener {
 }
 ----
 
-The trick in order to be able to use SCI and features like this one with Tomcat 7/8 tuning, is to declare your listener in your web.xml : 
+The trick in order to be able to use SCI and features like this one with Tomcat 7/8 tuning, is to declare your listener in your web.xml: 
 
 [source,xml]
 ----
