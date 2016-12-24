@@ -30,4 +30,11 @@ Instead of using the _@MultipartConfig_ annotation to hard-code these attributes
 ----
 
 But if you want to set dynamically your upload settings (via properties for example) from your java code, you're stuck.
-Using the SIC
+Using the Dynamic servlet registration as described in my previous post, you can instanciate the configuration object and set whatever you want:
+
+[source, java]
+----
+
+----
+
+You can find an example on my github 
