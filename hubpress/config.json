@@ -5,8 +5,8 @@
     "branch": "gh-pages"
   },
   "site": {
-    "title": "Le blog du tambo",
-    "description": "Blog about development tricks and tech stuff",
+    "title": "Tambo's Tricks",
+    "description": "Blog about development tricks (mostely Java JEE) and tech stuff",
     "disqus": "jerometambo"
   },
   "socialnetwork": {
