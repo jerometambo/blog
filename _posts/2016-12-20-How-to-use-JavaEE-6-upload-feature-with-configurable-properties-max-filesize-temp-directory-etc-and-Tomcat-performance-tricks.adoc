@@ -1,4 +1,6 @@
 = How to use JavaEE 6 upload feature with configurable properties (max filesize, temp directory, etc.) and Tomcat performance tricks
+:published_at: 2016-12-20
+:hp-tags: Upload, Tomcat 7, Tomcat 8, Servlet 3.0, Java EE
 
 Since Servlet 3.0 (JavaEE 6), Servlet 3.0 supports two additional HttpServletRequest methods:
 
