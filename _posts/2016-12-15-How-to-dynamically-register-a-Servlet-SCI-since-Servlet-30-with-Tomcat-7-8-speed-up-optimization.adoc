@@ -1,6 +1,6 @@
 = How to dynamically register a Servlet (SCI since Servlet 3.0) with Tomcat 7 / 8 speed-up optimization
 :published_at: 2016-12-15
-:hp-tags: Tomcat 7, Tomcat 8, Servlet 3.0, Java
+:hp-tags: Tomcat 7, Tomcat 8, Servlet 3.0, Java, Programming
 
 
 Since Tomcat 7, and it's even worth with Tomcat 8, the time to start up a webapp has seriously increased. There are 2 excellent posts about how to speed-up the start-up of a webapp in Tomcat by changing your webapp configuration (mostly web.xml) :
