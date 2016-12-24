@@ -40,8 +40,9 @@ Using the Dynamic servlet registration as described in my previous post, you can
 You can find an example on my github: https://github.com/jerometambo/dynamicservletinitializer on the _uploadConfigFromProperties_ branch. And you can also find a utils class to deal with _File_ uploads on my github: .
 
 Useful links:
- -  http://docs.oracle.com/javaee/6/tutorial/doc/glrbb.html
- -  https://docs.oracle.com/javaee/7/tutorial/servlets016.htm
+
+- http://docs.oracle.com/javaee/6/tutorial/doc/glrbb.html
+- https://docs.oracle.com/javaee/7/tutorial/servlets016.htm
 
 
 Tchou !
