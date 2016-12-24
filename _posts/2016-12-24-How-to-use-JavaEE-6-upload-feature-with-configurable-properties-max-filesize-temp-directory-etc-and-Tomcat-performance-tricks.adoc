@@ -1,6 +1,6 @@
 = How to use JavaEE 6 upload feature with configurable properties (max filesize, temp directory, etc.) and Tomcat performance tricks
 
-Since Servlet 3.0 (Java EE6), Servlet 3.0 supports two additional HttpServletRequest methods:
+Since Servlet 3.0 (JavaEE 6), Servlet 3.0 supports two additional HttpServletRequest methods:
 
     Collection<Part> getParts()
 
@@ -34,7 +34,29 @@ Using the Dynamic servlet registration as described in my previous post, you can
 
 [source, java]
 ----
+package org.jerometambo.dynamicservletinitializer.servlet;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.ServletRegistration.Dynamic;
+
+/**
+ * Servlets initialization.
+ */
+public class DynamicServletInitializer implements ServletContextListener {
+
+    public void contextInitialized(ServletContextEvent servletContextEvent) {
+        final int size = Parameters.UPLOAD_SIZE_LIMIT * 1024; //from wherever you want
+        Dynamic registered = servletContextEvent.getServletContext().addServlet("HelloWorld", HelloWorld.class);
+        registered.addMapping("/HelloWorld");
+        registered.setMultipartConfig(new MultipartConfigElement(Parameters.UPLOAD_TEMP_DIR, size, size, size));
+    }
+
+    public void contextDestroyed(ServletContextEvent sce) {
+
+    }
+
+}
 ----
 
 You can find an example on my github: https://github.com/jerometambo/dynamicservletinitializer on the _uploadConfigFromProperties_ branch. I will soon add a utils class to deal with _File_ uploads on my github.
