@@ -38,3 +38,5 @@ Using the Dynamic servlet registration as described in my previous post, you can
 ----
 
 You can find an example on my github: https://github.com/jerometambo/dynamicservletinitializer on the _uploadConfigFromProperties_ branch. And you can also find a utils class to deal with _File_ uploads on my github: .
+
+Tchou !
