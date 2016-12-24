@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tambo's Tricks]]></title><description><![CDATA[Blog about development tricks (mostly Java JEE) and tech stuff]]></description><link>https://jerometambo.github.io/blog</link><generator>RSS for Node</generator><lastBuildDate>Sat, 24 Dec 2016 15:42:22 GMT</lastBuildDate><atom:link href="https://jerometambo.github.io/blog/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Fix network TV streaming (Working then nothing) Mediaportal extension with Kodi]]></title><description><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tambo's Tricks]]></title><description><![CDATA[Blog about development tricks (mostly Java JEE) and tech stuff]]></description><link>https://jerometambo.github.io/blog</link><generator>RSS for Node</generator><lastBuildDate>Sat, 24 Dec 2016 15:47:53 GMT</lastBuildDate><atom:link href="https://jerometambo.github.io/blog/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Fix network TV streaming (Working then nothing) Mediaportal extension with Kodi]]></title><description><![CDATA[<div class="paragraph">
 <p>If, like myself, you have a Mediacenter based on Kodi (with Mediaportal for TV server) and you want to watch your TV channels from anywhere, you might have seen the "Working in the wind" problem:</p>
 </div>
 <div id="img-kodiWorking" class="imageblock">
@@ -7,9 +7,9 @@
 </div>
 <div class="title">Figure 1. When you click on your channel</div>
 </div>
-<div id="img-kodiWorking" class="imageblock">
+<div id="img-kodiWorkingNothing" class="imageblock">
 <div class="content">
-<img src="https://jerometambo.github.io/blog/images/kodiTVWorking.png" alt="Kodi" width="400" height="282">
+<img src="https://jerometambo.github.io/blog/images/kodiTVWorkingThenNothing.png" alt="Kodi" width="400" height="282">
 </div>
 <div class="title">Figure 2. And voilà</div>
 </div>
@@ -45,11 +45,17 @@
 <div class="paragraph">
 <p>The simpliest solution to this problem is to chage the streaming library from TsReader to ffmpeg:</p>
 </div>
-<div id="img-kodiWorking" class="imageblock">
+<div id="img-kodiConfig" class="imageblock">
 <div class="content">
 <img src="https://jerometambo.github.io/blog/images/kodiTVMediaPortalStreamConfig.png" alt="Kodi" width="400" height="282">
 </div>
 <div class="title">Figure 3. System &#8594; Settings &#8594; Add-ons &#8594; My add-ons &#8594; PVR clients &#8594; MediaPortal PVR Client &#8594; Configure &#8594; Playback</div>
+</div>
+<div id="img-kodiSuccess" class="imageblock">
+<div class="content">
+<img src="https://jerometambo.github.io/blog/images/kodiTVffmpeg.png" alt="Kodi" width="400" height="282">
+</div>
+<div class="title">Figure 4. Success !</div>
 </div>
 <div class="paragraph">
 <p>I hope it can prevent you from nervous crisis with Kodi :).</p>
