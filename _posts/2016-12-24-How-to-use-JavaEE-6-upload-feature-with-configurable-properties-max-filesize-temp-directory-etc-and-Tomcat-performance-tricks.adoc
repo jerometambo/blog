@@ -1,0 +1,33 @@
+= How to use JavaEE 6 upload feature with configurable properties (max filesize, temp directory, etc.) and Tomcat performance tricks
+
+Since Servlet 3.0 (Java EE6), Servlet 3.0 supports two additional HttpServletRequest methods:
+
+    Collection<Part> getParts()
+
+    Part getPart(String name)
+
+With this, you don't need  other library anymore to perform some file uploads.
+
+To set the upload properties, you can use the _@MultipartConfig_ annotation. The _@MultipartConfig_ annotation indicates that the servlet expects requests to be made using the multipart/form-data MIME type. Here's an example:
+
+[source, java]
+----
+@MultipartConfig(location="/tmp", fileSizeThreshold=1024*1024, 
+    maxFileSize=1024*1024*5, maxRequestSize=1024*1024*5*5)
+    
+----
+
+Instead of using the _@MultipartConfig_ annotation to hard-code these attributes in your file upload servlet, you could add the following as a child element of the servlet configuration element in the web.xml file:
+
+[source, xml]
+----
+<multipart-config>
+    <location>/tmp</location>
+    <max-file-size>20848820</max-file-size>
+    <max-request-size>418018841</max-request-size>
+    <file-size-threshold>1048576</file-size-threshold>
+</multipart-config>
+----
+
+But if you want to set dynamically your upload settings (via properties for example) from your java code, you're stuck.
+Using the SIC
