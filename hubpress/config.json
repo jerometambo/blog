@@ -10,9 +10,9 @@
     "disqus": "jerometambo"
   },
   "socialnetwork": {
-    "twitter": "jerometambo",
+    "twitter": "https://twitter.com/jerometambo",
     "linkedin": "https://www.linkedin.com/in/jerometamborini/en",
-    "github": "jerometambo"
+    "github": "https://github.com/jerometambo/"
   },
   "theme": {
     "name": "saga"
