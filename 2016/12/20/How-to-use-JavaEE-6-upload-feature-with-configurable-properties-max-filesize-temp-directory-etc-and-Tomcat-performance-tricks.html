@@ -11,8 +11,8 @@
     <link href="//fonts.googleapis.com/css?family=Noto+Sans:300,400,700" rel="stylesheet" type="text/css">
     <link href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic" rel="stylesheet" type="text/css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link href="//jerometambo.github.io/blog/themes/saga/assets/css/style.css?v=1482591833484" rel="stylesheet" type="text/css">
-    <link href="//jerometambo.github.io/blog/themes/saga/assets/css/animate.min.css?v=1482591833484" rel="stylesheet" type="text/css">
+    <link href="//jerometambo.github.io/blog/themes/saga/assets/css/style.css?v=1482594719852" rel="stylesheet" type="text/css">
+    <link href="//jerometambo.github.io/blog/themes/saga/assets/css/animate.min.css?v=1482594719852" rel="stylesheet" type="text/css">
     <link href="https://jerometambo.github.io/blog/favicon.ico" rel="shortcut icon">
     <link rel="canonical" href="https://jerometambo.github.io/blog/2016/12/20/How-to-use-JavaEE-6-upload-feature-with-configurable-properties-max-filesize-temp-directory-etc-and-Tomcat-performance-tricks.html" />
     <meta name="referrer" content="origin" />
@@ -27,6 +27,7 @@
     <meta property="article:tag" content=" Tomcat 8" />
     <meta property="article:tag" content=" Servlet 3.0" />
     <meta property="article:tag" content=" Java EE" />
+    <meta property="article:tag" content=" Programming" />
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="How to use JavaEE 6 upload feature with configurable properties (max filesize, temp directory, etc.) and Tomcat performance tricks" />
@@ -40,7 +41,7 @@ null
     <meta name="generator" content="HubPress" />
     <link rel="alternate" type="application/rss+xml" title="Tambo&#x27;s Tricks" href="https://jerometambo.github.io/blog/rss/" />
 </head>
-<body class="post-template tag-Upload tag-Tomcat-7 tag-Tomcat-8 tag-Servlet-30 tag-Java-EE">
+<body class="post-template tag-Upload tag-Tomcat-7 tag-Tomcat-8 tag-Servlet-30 tag-Java-EE tag-Programming">
     <header id="header" class="animated fadeIn">
     <div class="header-background">
     <section class="blog-content">
@@ -56,13 +57,13 @@ null
     <section class="header-content">
         <h1 class="post-title animated fadeInUp">How to use JavaEE 6 upload feature with configurable properties (max filesize, temp directory, etc.) and Tomcat performance tricks</h1>
         <span class="post-data"><span class="date animated fadeInUp"><i class="fa fa-clock-o"></i> <time class="timesince date" data-timesince="1482188400" datetime="2016-12-20T00:00" title="20 December 2016">5 days ago</time></span>
-            <span class="tags animated fadeInUp"><i class="fa fa-tags"></i> <a href="https://jerometambo.github.io/blog/tag/Upload/">Upload</a>, <a href="https://jerometambo.github.io/blog/tag/Tomcat-7/"> Tomcat 7</a>, <a href="https://jerometambo.github.io/blog/tag/Tomcat-8/"> Tomcat 8</a>, <a href="https://jerometambo.github.io/blog/tag/Servlet-30/"> Servlet 3.0</a>, <a href="https://jerometambo.github.io/blog/tag/Java-EE/"> Java EE</a></span>
+            <span class="tags animated fadeInUp"><i class="fa fa-tags"></i> <a href="https://jerometambo.github.io/blog/tag/Upload/">Upload</a>, <a href="https://jerometambo.github.io/blog/tag/Tomcat-7/"> Tomcat 7</a>, <a href="https://jerometambo.github.io/blog/tag/Tomcat-8/"> Tomcat 8</a>, <a href="https://jerometambo.github.io/blog/tag/Servlet-30/"> Servlet 3.0</a>, <a href="https://jerometambo.github.io/blog/tag/Java-EE/"> Java EE</a>, <a href="https://jerometambo.github.io/blog/tag/Programming/"> Programming</a></span>
             <span class="author animated fadeInUp"><i class="fa fa-user"></i> <a href="https://jerometambo.github.io/blog/author/jerometambo/">jerometambo</a></span></span>
     </section>
     </div>
 </header>
 <main id="main" class="content">
-    <article itemtype="http://schema.org/BlogPosting" class="animated fadeIn content post post tag-Upload tag-Tomcat-7 tag-Tomcat-8 tag-Servlet-30 tag-Java-EE">
+    <article itemtype="http://schema.org/BlogPosting" class="animated fadeIn content post post tag-Upload tag-Tomcat-7 tag-Tomcat-8 tag-Servlet-30 tag-Java-EE tag-Programming">
         <section class="post-content">
             <div class="paragraph">
 <p>Since Servlet 3.0 (JavaEE 6), Servlet 3.0 supports two additional HttpServletRequest methods:</p>
@@ -199,7 +200,7 @@ public class DynamicServletInitializer implements ServletContextListener {
 
         hljs.initHighlightingOnLoad();
       </script>
-    <script src="//jerometambo.github.io/blog/themes/saga/assets/js/scripts.js?v=1482591833484"></script>
+    <script src="//jerometambo.github.io/blog/themes/saga/assets/js/scripts.js?v=1482594719852"></script>
     
 </body>
 </html>
