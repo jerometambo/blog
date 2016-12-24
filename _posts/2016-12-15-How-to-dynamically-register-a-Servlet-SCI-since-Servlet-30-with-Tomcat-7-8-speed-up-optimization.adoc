@@ -37,10 +37,8 @@ public class DynamicServletInitializer implements ServletContextListener {
    * Registers the main servlet in application.
    */
   protected void registerMainServlet(ServletContextEvent servletContextEvent) {
-        public void contextInitialized(ServletContextEvent servletContextEvent) {
-        Dynamic registered = servletContextEvent.getServletContext().addServlet(MAIN_SERVLET, HelloWorldServlet.class);
-        registered.addMapping("/HelloWorld");
-    }
+    Dynamic registered = servletContextEvent.getServletContext().addServlet(MAIN_SERVLET, HelloWorldServlet.class);
+    registered.addMapping("/HelloWorld");
     registered.setInitParameter(ERROR_PAGE, getErrorPage());
   }
   
