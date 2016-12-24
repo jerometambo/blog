@@ -1,4 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tambo's Tricks]]></title><description><![CDATA[Blog about development tricks (mostly Java JEE) and tech stuff]]></description><link>https://jerometambo.github.io/blog</link><generator>RSS for Node</generator><lastBuildDate>Sat, 24 Dec 2016 15:03:53 GMT</lastBuildDate><atom:link href="https://jerometambo.github.io/blog/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[How to use JavaEE 6 upload feature with configurable properties (max filesize, temp directory, etc.) and Tomcat performance tricks]]></title><description><![CDATA[<div class="paragraph">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Tambo's Tricks]]></title><description><![CDATA[Blog about development tricks (mostly Java JEE) and tech stuff]]></description><link>https://jerometambo.github.io/blog</link><generator>RSS for Node</generator><lastBuildDate>Sat, 24 Dec 2016 15:42:22 GMT</lastBuildDate><atom:link href="https://jerometambo.github.io/blog/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Fix network TV streaming (Working then nothing) Mediaportal extension with Kodi]]></title><description><![CDATA[<div class="paragraph">
+<p>If, like myself, you have a Mediacenter based on Kodi (with Mediaportal for TV server) and you want to watch your TV channels from anywhere, you might have seen the "Working in the wind" problem:</p>
+</div>
+<div id="img-kodiWorking" class="imageblock">
+<div class="content">
+<img src="https://jerometambo.github.io/blog/images/kodiTVWorking.png" alt="Kodi" width="400" height="282">
+</div>
+<div class="title">Figure 1. When you click on your channel</div>
+</div>
+<div id="img-kodiWorking" class="imageblock">
+<div class="content">
+<img src="https://jerometambo.github.io/blog/images/kodiTVWorking.png" alt="Kodi" width="400" height="282">
+</div>
+<div class="title">Figure 2. And voilà</div>
+</div>
+<div class="paragraph">
+<p>So let&#8217;s read the Kodi&#8217;s logs:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>19:30:52 T:5604  NOTICE: DVDPlayer: Opening: pvr://channels/tv/Toutes les chaînes/pvr.mediaportal.tvserver_17.pvr
+19:30:52 T:5604 WARNING: CDVDMessageQueue(player)::Put MSGQ_NOT_INITIALIZED
+19:30:52 T:2472  NOTICE: Creating InputStream
+19:30:52 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Open Live stream for channel uid=17
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Channel timeshift buffer: C:\Tv\live3-0.ts.tsbuffer
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Creating a new TsReader...
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: TsReader open 'C:\Tv\live3-0.ts.tsbuffer'
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Cannot access 'C:\Tv\live3-0.ts.tsbuffer' directly. Assuming multiseat mode. Need to translate to UNC filename.
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Translate path C:\Tv\live3-0.ts.tsbuffer -&gt; smb://kodi:kodi@BBMEDIACENTER/Tv/live3-0.ts.tsbuffer
+19:30:53 T:2472   ERROR: AddOnLog: MediaPortal PVR Client: Cannot find or access file: smb://kodi:kodi@BBMEDIACENTER/Tv/live3-0.ts.tsbuffer. Check share access rights.
+19:30:53 T:2472   ERROR: AddOnLog: MediaPortal PVR Client: Cannot open timeshift buffer C:\Tv\live3-0.ts.tsbuffer
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: TsReader: closing file
+19:30:54 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: CloseLiveStream: True
+19:30:54 T:2472   ERROR: CDVDPlayer::OpenInputStream - error opening [pvr://channels/tv/Toutes les chaînes/pvr.mediaportal.tvserver_17.pvr]
+19:30:54 T:2472  NOTICE: CDVDPlayer::OnExit()
+19:30:54 T:5604  NOTICE: CDVDPlayer::CloseFile()
+19:30:54 T:5604  NOTICE: DVDPlayer: waiting for threads to exit
+19:30:54 T:5604  NOTICE: DVDPlayer: finished waiting
+19:30:54 T:5604  NOTICE: CDVDPlayer::CloseFile()</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It seems that TsReader can&#8217;t access the SMB share, even this SMB share works.</p>
+</div>
+<div class="paragraph">
+<p>The simpliest solution to this problem is to chage the streaming library from TsReader to ffmpeg:</p>
+</div>
+<div id="img-kodiWorking" class="imageblock">
+<div class="content">
+<img src="https://jerometambo.github.io/blog/images/kodiTVMediaPortalStreamConfig.png" alt="Kodi" width="400" height="282">
+</div>
+<div class="title">Figure 3. System &#8594; Settings &#8594; Add-ons &#8594; My add-ons &#8594; PVR clients &#8594; MediaPortal PVR Client &#8594; Configure &#8594; Playback</div>
+</div>
+<div class="paragraph">
+<p>I hope it can prevent you from nervous crisis with Kodi :).</p>
+</div>
+<div class="paragraph">
+<p>Tchou !</p>
+</div>
+<div class="paragraph">
+<p>Useful links:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://kodi.tv/" class="bare">https://kodi.tv/</a></p>
+</li>
+<li>
+<p><a href="http://www.team-mediaportal.com/" class="bare">http://www.team-mediaportal.com/</a></p>
+</li>
+</ul>
+</div>]]></description><link>https://jerometambo.github.io/blog/2016/12/23/Fix-network-TV-streaming-Working-then-nothing-Mediaportal-extension-with-Kodi.html</link><guid isPermaLink="true">https://jerometambo.github.io/blog/2016/12/23/Fix-network-TV-streaming-Working-then-nothing-Mediaportal-extension-with-Kodi.html</guid><category><![CDATA[Kodi]]></category><category><![CDATA[ Mediaportal]]></category><category><![CDATA[ TV]]></category><category><![CDATA[ Tech]]></category><dc:creator><![CDATA[jerometambo]]></dc:creator><pubDate>Fri, 23 Dec 2016 00:00:00 GMT</pubDate></item><item><title><![CDATA[How to use JavaEE 6 upload feature with configurable properties (max filesize, temp directory, etc.) and Tomcat performance tricks]]></title><description><![CDATA[<div class="paragraph">
 <p>Since Servlet 3.0 (JavaEE 6), Servlet 3.0 supports two additional HttpServletRequest methods:</p>
 </div>
 <div class="literalblock">
