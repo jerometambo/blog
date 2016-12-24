@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Fix network TV streaming (Working then nothing) Mediaportal extension with Kodi</title>
+    <meta name="description" content="" />
+    <link href="//fonts.googleapis.com/css?family=Noto+Sans:300,400,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic" rel="stylesheet" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//jerometambo.github.io/blog/themes/saga/assets/css/style.css?v=1482594142963" rel="stylesheet" type="text/css">
+    <link href="//jerometambo.github.io/blog/themes/saga/assets/css/animate.min.css?v=1482594142963" rel="stylesheet" type="text/css">
+    <link href="https://jerometambo.github.io/blog/favicon.ico" rel="shortcut icon">
+    <link rel="canonical" href="https://jerometambo.github.io/blog/2016/12/23/Fix-network-TV-streaming-Working-then-nothing-Mediaportal-extension-with-Kodi.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Tambo&#x27;s Tricks" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Fix network TV streaming (Working then nothing) Mediaportal extension with Kodi" />
+    <meta property="og:description" content="If, like myself, you have a Mediacenter based on Kodi (with Mediaportal for TV server) and you want to watch your TV channels from anywhere, you might have seen the &quot;Working in the wind&quot; problem: Figure 1. When you click on your channel Figure 2. And voilà So let&amp;#8217;" />
+    <meta property="og:url" content="https://jerometambo.github.io/blog/2016/12/23/Fix-network-TV-streaming-Working-then-nothing-Mediaportal-extension-with-Kodi.html" />
+    <meta property="article:tag" content="Kodi" />
+    <meta property="article:tag" content=" Mediaportal" />
+    <meta property="article:tag" content=" TV" />
+    <meta property="article:tag" content=" Tech" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Fix network TV streaming (Working then nothing) Mediaportal extension with Kodi" />
+    <meta name="twitter:description" content="If, like myself, you have a Mediacenter based on Kodi (with Mediaportal for TV server) and you want to watch your TV channels from anywhere, you might have seen the &quot;Working in the wind&quot; problem: Figure 1. When you click on your channel Figure 2. And voilà So let&amp;#8217;" />
+    <meta name="twitter:url" content="https://jerometambo.github.io/blog/2016/12/23/Fix-network-TV-streaming-Working-then-nothing-Mediaportal-extension-with-Kodi.html" />
+    
+    <script type="application/ld+json">
+null
+    </script>
+
+    <meta name="generator" content="HubPress" />
+    <link rel="alternate" type="application/rss+xml" title="Tambo&#x27;s Tricks" href="https://jerometambo.github.io/blog/rss/" />
+</head>
+<body class="post-template tag-Kodi tag-Mediaportal tag-TV tag-Tech">
+    <header id="header" class="animated fadeIn">
+    <div class="header-background">
+    <section class="blog-content">
+        <a id="site-url" class="blog-title" href="https://jerometambo.github.io/blog">Tambo&#x27;s Tricks</a>
+        <span class="blog-description">Blog about development tricks (mostly Java JEE) and tech stuff</span>
+        <nav class="links fadeIn animated">
+            <ul>
+                <li class="rss"><a title="RSS Feed" href="/rss/"><i class="fa fa-fw fa-rss-square"></i></a></li>
+        
+            </ul>
+        </nav>
+    </section>
+    <section class="header-content">
+        <h1 class="post-title animated fadeInUp">Fix network TV streaming (Working then nothing) Mediaportal extension with Kodi</h1>
+        <span class="post-data"><span class="date animated fadeInUp"><i class="fa fa-clock-o"></i> <time class="timesince date" data-timesince="1482447600" datetime="2016-12-23T00:00" title="23 December 2016">2 days ago</time></span>
+            <span class="tags animated fadeInUp"><i class="fa fa-tags"></i> <a href="https://jerometambo.github.io/blog/tag/Kodi/">Kodi</a>, <a href="https://jerometambo.github.io/blog/tag/Mediaportal/"> Mediaportal</a>, <a href="https://jerometambo.github.io/blog/tag/TV/"> TV</a>, <a href="https://jerometambo.github.io/blog/tag/Tech/"> Tech</a></span>
+            <span class="author animated fadeInUp"><i class="fa fa-user"></i> <a href="https://jerometambo.github.io/blog/author/jerometambo/">jerometambo</a></span></span>
+    </section>
+    </div>
+</header>
+<main id="main" class="content">
+    <article itemtype="http://schema.org/BlogPosting" class="animated fadeIn content post post tag-Kodi tag-Mediaportal tag-TV tag-Tech">
+        <section class="post-content">
+            <div class="paragraph">
+<p>If, like myself, you have a Mediacenter based on Kodi (with Mediaportal for TV server) and you want to watch your TV channels from anywhere, you might have seen the "Working in the wind" problem:</p>
+</div>
+<div id="img-kodiWorking" class="imageblock">
+<div class="content">
+<img src="https://jerometambo.github.io/blog/images/kodiTVWorking.png" alt="Kodi" width="400" height="282">
+</div>
+<div class="title">Figure 1. When you click on your channel</div>
+</div>
+<div id="img-kodiWorking" class="imageblock">
+<div class="content">
+<img src="https://jerometambo.github.io/blog/images/kodiTVWorking.png" alt="Kodi" width="400" height="282">
+</div>
+<div class="title">Figure 2. And voilà</div>
+</div>
+<div class="paragraph">
+<p>So let&#8217;s read the Kodi&#8217;s logs:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>19:30:52 T:5604  NOTICE: DVDPlayer: Opening: pvr://channels/tv/Toutes les chaînes/pvr.mediaportal.tvserver_17.pvr
+19:30:52 T:5604 WARNING: CDVDMessageQueue(player)::Put MSGQ_NOT_INITIALIZED
+19:30:52 T:2472  NOTICE: Creating InputStream
+19:30:52 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Open Live stream for channel uid=17
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Channel timeshift buffer: C:\Tv\live3-0.ts.tsbuffer
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Creating a new TsReader...
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: TsReader open 'C:\Tv\live3-0.ts.tsbuffer'
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Cannot access 'C:\Tv\live3-0.ts.tsbuffer' directly. Assuming multiseat mode. Need to translate to UNC filename.
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Translate path C:\Tv\live3-0.ts.tsbuffer -&gt; smb://kodi:kodi@BBMEDIACENTER/Tv/live3-0.ts.tsbuffer
+19:30:53 T:2472   ERROR: AddOnLog: MediaPortal PVR Client: Cannot find or access file: smb://kodi:kodi@BBMEDIACENTER/Tv/live3-0.ts.tsbuffer. Check share access rights.
+19:30:53 T:2472   ERROR: AddOnLog: MediaPortal PVR Client: Cannot open timeshift buffer C:\Tv\live3-0.ts.tsbuffer
+19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: TsReader: closing file
+19:30:54 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: CloseLiveStream: True
+19:30:54 T:2472   ERROR: CDVDPlayer::OpenInputStream - error opening [pvr://channels/tv/Toutes les chaînes/pvr.mediaportal.tvserver_17.pvr]
+19:30:54 T:2472  NOTICE: CDVDPlayer::OnExit()
+19:30:54 T:5604  NOTICE: CDVDPlayer::CloseFile()
+19:30:54 T:5604  NOTICE: DVDPlayer: waiting for threads to exit
+19:30:54 T:5604  NOTICE: DVDPlayer: finished waiting
+19:30:54 T:5604  NOTICE: CDVDPlayer::CloseFile()</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It seems that TsReader can&#8217;t access the SMB share, even this SMB share works.</p>
+</div>
+<div class="paragraph">
+<p>The simpliest solution to this problem is to chage the streaming library from TsReader to ffmpeg:</p>
+</div>
+<div id="img-kodiWorking" class="imageblock">
+<div class="content">
+<img src="https://jerometambo.github.io/blog/images/kodiTVMediaPortalStreamConfig.png" alt="Kodi" width="400" height="282">
+</div>
+<div class="title">Figure 3. System &#8594; Settings &#8594; Add-ons &#8594; My add-ons &#8594; PVR clients &#8594; MediaPortal PVR Client &#8594; Configure &#8594; Playback</div>
+</div>
+<div class="paragraph">
+<p>I hope it can prevent you from nervous crisis with Kodi :).</p>
+</div>
+<div class="paragraph">
+<p>Tchou !</p>
+</div>
+<div class="paragraph">
+<p>Useful links:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://kodi.tv/" class="bare">https://kodi.tv/</a></p>
+</li>
+<li>
+<p><a href="http://www.team-mediaportal.com/" class="bare">http://www.team-mediaportal.com/</a></p>
+</li>
+</ul>
+</div>
+        </section>
+
+    
+        <section class="post-comments">
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+          var disqus_shortname = 'jerometambo'; // required: replace example with your forum shortname
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </section>
+    
+    </article>
+
+</main>
+    <footer class="animated fadeIn" id="footer">
+        <section class="colophon">
+          <section class="copyright">Copyright &copy; <span itemprop="copyrightHolder">Tambo&#x27;s Tricks</span>. <span rel="license">All Rights Reserved</span>.</section>
+          <section class="poweredby">Published with <a class="icon-ghost" href="http://hubpress.io">HubPress</a></section>
+        </section>
+        <section class="bottom">
+          <section class="attribution">
+            <a href="http://github.com/Reedyn/Saga">Built with <i class="fa fa-heart"></i> and Free and Open-Source Software</a>.
+          </section>
+        </section>
+    </footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();
+      </script>
+    <script src="//jerometambo.github.io/blog/themes/saga/assets/js/scripts.js?v=1482594142963"></script>
+    
+</body>
+</html>
