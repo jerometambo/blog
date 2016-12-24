@@ -1,0 +1,55 @@
+= Fix network TV streaming (Working then nothing) Mediaportal extension with Kodi
+
+:published_at: 2016-12-23
+:hp-tags: Kodi, Mediaportal, TV, Tech
+
+If, like myself, you have a Mediacenter based on Kodi (with Mediaportal for TV server) and you want to watch your TV channels from anywhere, you might have seen the "Working in the wind" problem:
+
+[[img-kodiWorking]]
+.When you click on your channel
+image::kodiTVWorking.png[Kodi, 400, 282]
+
+[[img-kodiWorking]]
+.And voilà
+image::kodiTVWorking.png[Kodi, 400, 282]
+
+So let's read the Kodi's logs:
+
+
+  19:30:52 T:5604  NOTICE: DVDPlayer: Opening: pvr://channels/tv/Toutes les chaînes/pvr.mediaportal.tvserver_17.pvr
+  19:30:52 T:5604 WARNING: CDVDMessageQueue(player)::Put MSGQ_NOT_INITIALIZED
+  19:30:52 T:2472  NOTICE: Creating InputStream
+  19:30:52 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Open Live stream for channel uid=17
+  19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Channel timeshift buffer: C:\Tv\live3-0.ts.tsbuffer
+  19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Creating a new TsReader...
+  19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: TsReader open 'C:\Tv\live3-0.ts.tsbuffer'
+  19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Cannot access 'C:\Tv\live3-0.ts.tsbuffer' directly. Assuming multiseat mode. Need to translate to UNC filename.
+  19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: Translate path C:\Tv\live3-0.ts.tsbuffer -> smb://kodi:kodi@BBMEDIACENTER/Tv/live3-0.ts.tsbuffer
+  19:30:53 T:2472   ERROR: AddOnLog: MediaPortal PVR Client: Cannot find or access file: smb://kodi:kodi@BBMEDIACENTER/Tv/live3-0.ts.tsbuffer. Check share access rights.
+  19:30:53 T:2472   ERROR: AddOnLog: MediaPortal PVR Client: Cannot open timeshift buffer C:\Tv\live3-0.ts.tsbuffer
+  19:30:53 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: TsReader: closing file
+  19:30:54 T:2472  NOTICE: AddOnLog: MediaPortal PVR Client: CloseLiveStream: True
+  19:30:54 T:2472   ERROR: CDVDPlayer::OpenInputStream - error opening [pvr://channels/tv/Toutes les chaînes/pvr.mediaportal.tvserver_17.pvr]
+  19:30:54 T:2472  NOTICE: CDVDPlayer::OnExit()
+  19:30:54 T:5604  NOTICE: CDVDPlayer::CloseFile()
+  19:30:54 T:5604  NOTICE: DVDPlayer: waiting for threads to exit
+  19:30:54 T:5604  NOTICE: DVDPlayer: finished waiting
+  19:30:54 T:5604  NOTICE: CDVDPlayer::CloseFile()
+  
+It seems that TsReader can't access the SMB share, even this SMB share works.
+
+The simpliest solution to this problem is to chage the streaming library from TsReader to ffmpeg:
+[[img-kodiWorking]]
+.System -> Settings -> Add-ons -> My add-ons -> PVR clients -> MediaPortal PVR Client -> Configure -> Playback
+image::kodiTVMediaPortalStreamConfig.png[Kodi, 400, 282]
+
+
+I hope it can prevent you from nervous crisis with Kodi :).
+
+Tchou !
+
+Useful links:
+
+- https://kodi.tv/
+- http://www.team-mediaportal.com/
+
