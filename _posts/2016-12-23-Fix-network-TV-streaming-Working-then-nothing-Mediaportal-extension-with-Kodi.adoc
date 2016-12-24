@@ -9,9 +9,9 @@ If, like myself, you have a Mediacenter based on Kodi (with Mediaportal for TV s
 .When you click on your channel
 image::kodiTVWorking.png[Kodi, 400, 282]
 
-[[img-kodiWorking]]
+[[img-kodiWorkingNothing]]
 .And voilà
-image::kodiTVWorking.png[Kodi, 400, 282]
+image::kodiTVWorkingThenNothing.png[Kodi, 400, 282]
 
 So let's read the Kodi's logs:
 
@@ -39,10 +39,12 @@ So let's read the Kodi's logs:
 It seems that TsReader can't access the SMB share, even this SMB share works.
 
 The simpliest solution to this problem is to chage the streaming library from TsReader to ffmpeg:
-[[img-kodiWorking]]
+[[img-kodiConfig]]
 .System -> Settings -> Add-ons -> My add-ons -> PVR clients -> MediaPortal PVR Client -> Configure -> Playback
 image::kodiTVMediaPortalStreamConfig.png[Kodi, 400, 282]
-
+[[img-kodiSuccess]]
+.Success !
+image::kodiTVffmpeg.png[Kodi, 400, 282]
 
 I hope it can prevent you from nervous crisis with Kodi :).
 
