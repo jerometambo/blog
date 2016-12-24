@@ -70,7 +70,7 @@ The trick in order to be able to use SCI and features like this one with Tomcat 
   <!-- ... -->
 </web-app>
 ----
-You can find an example here: https://github.com/jerometambo/dynamicservletinitializer on the _master_ branch.
+You can find an example on my github: https://github.com/jerometambo/dynamicservletinitializer on the _master_ branch.
 
 I hope it can help you to fasten up your applications start-up.
 
