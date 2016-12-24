@@ -6,13 +6,13 @@
   },
   "site": {
     "title": "Tambo's Tricks",
-    "description": "Blog about development tricks (mostely Java JEE) and tech stuff",
+    "description": "Blog about development tricks (mostly Java JEE) and tech stuff",
     "disqus": "jerometambo"
   },
   "socialnetwork": {
     "twitter": "https://twitter.com/jerometambo",
     "linkedin": "https://www.linkedin.com/in/jerometamborini/en",
-    "github": "https://github.com/jerometambo/"
+    "github": "https://github.com/jerometambo"
   },
   "theme": {
     "name": "saga"
